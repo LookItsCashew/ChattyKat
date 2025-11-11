@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ChattyKatClient:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ChattyKatClient_jar</output-path>
+    <root id="archive" name="ChattyKatClient.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/com/chattykat/client/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="ChattyKat" />
+    </root>
+  </artifact>
+</component>
