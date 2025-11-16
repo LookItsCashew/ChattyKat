@@ -4,18 +4,21 @@ import java.net.*;
 import java.io.*;
 import java.util.function.Consumer;
 
-import com.chattykat.ChattyKatConstants;
+import com.chattykat.server.ClientHandler;
 
 public class ChattyClient {
     private Socket socket = null;
     private PrintWriter out = null;
     private BufferedReader in = null;
     private Consumer<String> onMessageReceived;
+    private Consumer<Integer> onConnectedToRoom;
+    private ClientHandler handler;
 
     public ChattyClient(
             String srvAddress,
             int port,
-            Consumer<String> onMessageReceived
+            Consumer<String> onMessageReceived,
+            Consumer<Integer> onConnectedToRoom
     ) throws IOException {
         this.socket = new Socket(srvAddress, port);
         IO.println("Connected to server at "
@@ -28,10 +31,16 @@ public class ChattyClient {
         this.out = new PrintWriter(this.socket.getOutputStream(), true);
         this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
         this.onMessageReceived = onMessageReceived;
+        this.onConnectedToRoom = onConnectedToRoom;
+        //this.onConnectedToRoom.accept();
         }
 
     public void sendMessage(String message) {
-        out.println(message);
+        this.out.println(message);
+    }
+
+    public void setHandler(ClientHandler srvHandler) {
+        this.handler = srvHandler;
     }
 
     public void startClient() {

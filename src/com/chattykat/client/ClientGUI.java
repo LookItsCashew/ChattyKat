@@ -33,7 +33,8 @@ public class ClientGUI extends JFrame {
             client = new ChattyClient(
                     ChattyKatConstants.SERVER_IP,
                     ChattyKatConstants.APPLICATION_PORT,
-                    this::onMessageReceived
+                    this::onMessageReceived,
+                    this::onConnectedToRoom
                     );
             client.startClient();
         } catch (IOException ex) {
@@ -50,6 +51,12 @@ public class ClientGUI extends JFrame {
 
     void onMessageReceived(String message) {
         SwingUtilities.invokeLater(() -> messageArea.append(message + "\n"));
+    }
+
+    void onConnectedToRoom(int clientId) {
+        SwingUtilities.invokeLater(
+                () -> setTitle(String.format("ChattyKat - Client %d", clientId))
+        );
     }
 
     public static  void main() {
