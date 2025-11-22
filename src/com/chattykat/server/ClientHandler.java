@@ -40,11 +40,14 @@ public class ClientHandler implements Runnable {
             String inputLine;
             while ((inputLine = this.in.readLine()) != null) {
                 for (var client : this.clients) {
-                    client.out.println(String.format("[%d]: %s", this.clientId, inputLine));
+                    client.out.println("["
+                            + this.clientId
+                            + "]: "
+                            + inputLine);
                 }
             }
         } catch (IOException ex) {
-            IO.println("ERROR: " + ex.getMessage());
+            System.out.println("ERROR: " + ex.getMessage());
         } finally {
             try {
                 this.in.close();

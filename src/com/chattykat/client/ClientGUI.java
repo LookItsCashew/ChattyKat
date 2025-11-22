@@ -2,10 +2,8 @@ package com.chattykat.client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
 
-import com.chattykat.ChattyKat;
 import com.chattykat.ChattyKatConstants;
 
 public class ClientGUI extends JFrame {
@@ -30,15 +28,30 @@ public class ClientGUI extends JFrame {
         add(textField, BorderLayout.SOUTH);
 
         try {
+            String ip = JOptionPane.showInputDialog(
+                    this,
+                    "Server address: ",
+                    "Connect to server",
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (ip == null) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No IP given. Please provide a valid server address.",
+                        "Connection error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                System.exit(1);
+            }
             client = new ChattyClient(
-                    ChattyKatConstants.SERVER_IP,
+                    ip,
                     ChattyKatConstants.APPLICATION_PORT,
                     this::onMessageReceived,
                     this::onConnectedToRoom
                     );
             client.startClient();
         } catch (IOException ex) {
-            IO.println("ERROR: " + ex.getMessage());
+            System.out.println("ERROR: " + ex.getMessage());
             JOptionPane.showMessageDialog(
                     this,
                     "Error connecting to server",
@@ -55,7 +68,7 @@ public class ClientGUI extends JFrame {
 
     void onConnectedToRoom(int clientId) {
         SwingUtilities.invokeLater(
-                () -> setTitle(String.format("ChattyKat - Client %d", clientId))
+                () -> setTitle("ChattyKat - Client " + clientId)
         );
     }
 

@@ -12,11 +12,10 @@ public class ChattyServer {
 
     static void main() {
         try (var serverSocket = new ServerSocket(ChattyKatConstants.APPLICATION_PORT)) {
-            IO.println(String.format(
-                    "Server running at %s, listening for incoming connections on port %d...",
-                    ChattyKatConstants.SERVER_IP,
-                    ChattyKatConstants.APPLICATION_PORT
-            ));
+            System.out.println("Server running, listening for incoming connections on port "
+                    .concat(String.valueOf(ChattyKatConstants.APPLICATION_PORT))
+                    .concat("...")
+            );
 
             Random rand = new Random(10); // seed given for consistent clientIds
 
@@ -27,7 +26,7 @@ public class ChattyServer {
                 // spawn clientHandler to handle each client
                 ClientHandler clientHandler = new ClientHandler(clientSocket, clients);
                 clientHandler.assignClientId(rand.nextInt());
-                IO.println(String.format("Client %d connected", clientHandler.getClientId()));
+                System.out.println("Client " + clientHandler.getClientId() + " connected");
 
                 clients.add(clientHandler);
                 new Thread(clientHandler).start();
