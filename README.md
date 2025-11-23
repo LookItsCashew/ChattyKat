@@ -10,8 +10,7 @@ It includes both a server application and a Swing-based client application, each
 ### 🖥️ Server
 - Listens for incoming TCP connections on port **2564**
 - Handles multiple clients concurrently
-- Broadcasts messages from any client to all connected clients
-- Gracefully manages client disconnects
+- Broadcasts messages to connected users
 
 ### 💬 Client
 - Implemented with Java Swing
