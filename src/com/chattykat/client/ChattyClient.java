@@ -21,7 +21,7 @@ public class ChattyClient {
             Consumer<Integer> onConnectedToRoom
     ) throws IOException {
         this.socket = new Socket(srvAddress, port);
-        IO.println("Connected to server at "
+        System.out.println("Connected to server at "
                 .concat(srvAddress)
                 .concat(" on port ")
                 .concat(String.valueOf(port))
